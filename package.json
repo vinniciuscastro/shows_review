@@ -1,0 +1,17 @@
+{
+  "name": "shows_review",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.16.1",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
