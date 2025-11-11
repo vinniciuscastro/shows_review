@@ -1,0 +1,48 @@
+<%- include('partials/header', { title: 'Home - Shows Review', currentPage: 'home' }) %>
+
+<div class="hero-section">
+    <h1>Welcome to Shows Review</h1>
+    <p>Discover and review your favorite movies and TV shows</p>
+</div>
+
+<div class="content-section">
+    <h2>Browse Content</h2>
+    <div class="category-boxes">
+        <div class="category-box movies-box">
+            <div class="box-icon">🎬</div>
+            <h3>Movies</h3>
+            <p>Explore and review movies</p>
+            <a href="/movies" class="btn">View Movies</a>
+        </div>
+
+        <div class="category-box tv-box">
+            <div class="box-icon">📺</div>
+            <h3>TV Shows</h3>
+            <p>Discover TV series</p>
+            <a href="/tv-shows" class="btn">View TV Shows</a>
+        </div>
+    </div>
+</div>
+
+<div class="features-section">
+    <h2>Features</h2>
+    <div class="feature-boxes">
+        <div class="feature-box">
+            <div class="feature-icon">⭐</div>
+            <h4>Rate & Review</h4>
+            <p>Share your thoughts on shows and movies</p>
+        </div>
+        <div class="feature-box">
+            <div class="feature-icon">👤</div>
+            <h4>User Accounts</h4>
+            <p>Create an account or post as a guest</p>
+        </div>
+        <div class="feature-box">
+            <div class="feature-icon">🔍</div>
+            <h4>Search & Filter</h4>
+            <p>Find exactly what you're looking for</p>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

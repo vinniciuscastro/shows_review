@@ -1,0 +1,382 @@
+/* ============================================
+   RESET & BASE STYLES
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #e4e6eb;
+    background: #0f1419;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: calc(100vh - 160px);
+}
+
+/* ============================================
+   NAVIGATION BAR
+   ============================================ */
+.navbar {
+    background: #1a1f2e;
+    border-bottom: 2px solid #3b9eff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.nav-logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #3b9eff;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #e4e6eb;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    background: #3b9eff;
+    color: #0f1419;
+    border-color: #3b9eff;
+}
+
+.nav-link.active {
+    background: #3b9eff;
+    color: #0f1419;
+    border-color: #3b9eff;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.hero-section {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: #1a1f2e;
+    border: 2px solid #3b9eff;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    margin-bottom: 2rem;
+}
+
+.hero-section h1 {
+    font-size: 2.5rem;
+    color: #3b9eff;
+    margin-bottom: 1rem;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    color: #b4b8c5;
+}
+
+/* ============================================
+   PAGE HEADER
+   ============================================ */
+.page-header {
+    text-align: center;
+    padding: 2rem;
+    background: #1a1f2e;
+    border: 2px solid #3b9eff;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    margin-bottom: 2rem;
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    color: #3b9eff;
+    margin-bottom: 0.5rem;
+}
+
+.page-header p {
+    font-size: 1.1rem;
+    color: #b4b8c5;
+}
+
+/* ============================================
+   CONTENT SECTIONS
+   ============================================ */
+.content-section {
+    background: #1a1f2e;
+    border: 2px solid #2a3040;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.content-section h2 {
+    color: #3b9eff;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+/* ============================================
+   CATEGORY BOXES (Home Page)
+   ============================================ */
+.category-boxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.category-box {
+    background: #242938;
+    color: white;
+    padding: 2rem;
+    border: 3px solid #3b9eff;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.category-box:hover {
+    background: #2a3040;
+    border-color: #60b0ff;
+    box-shadow: 0 8px 25px rgba(59, 158, 255, 0.3);
+}
+
+.box-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.category-box h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #3b9eff;
+}
+
+.category-box p {
+    margin-bottom: 1.5rem;
+    color: #b4b8c5;
+}
+
+/* ============================================
+   FEATURE BOXES
+   ============================================ */
+.features-section {
+    background: #1a1f2e;
+    border: 2px solid #2a3040;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.features-section h2 {
+    color: #3b9eff;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+.feature-boxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.feature-box {
+    background: #242938;
+    padding: 1.5rem;
+    text-align: center;
+    border: 2px solid #2a3040;
+    transition: all 0.3s ease;
+}
+
+.feature-box:hover {
+    border-color: #3b9eff;
+    background: #2a3040;
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.feature-box h4 {
+    color: #3b9eff;
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.feature-box p {
+    color: #b4b8c5;
+    font-size: 0.95rem;
+}
+
+/* ============================================
+   SHOWS GRID (Movies & TV Shows Pages)
+   ============================================ */
+.shows-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.show-box {
+    background: #242938;
+    border: 2px solid #2a3040;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.show-box:hover {
+    border-color: #3b9eff;
+    box-shadow: 0 8px 20px rgba(59, 158, 255, 0.3);
+}
+
+.show-image {
+    background: #3b9eff;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    border-bottom: 2px solid #2a3040;
+}
+
+.show-info {
+    padding: 1.5rem;
+}
+
+.show-info h3 {
+    color: #e4e6eb;
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.show-meta {
+    color: #b4b8c5;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.show-rating {
+    color: #3b9eff;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.btn {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background: #3b9eff;
+    color: #0f1419;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid #3b9eff;
+}
+
+.btn:hover {
+    background: #60b0ff;
+    color: #0f1419;
+    border-color: #60b0ff;
+}
+
+.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    background: transparent;
+    color: #3b9eff;
+    border: 2px solid #3b9eff;
+}
+
+.btn-small:hover {
+    background: #3b9eff;
+    color: #0f1419;
+    border-color: #3b9eff;
+}
+
+/* ============================================
+   INFO BOX
+   ============================================ */
+.info-box {
+    background: #2a3040;
+    border: 2px solid #3b9eff;
+    padding: 1rem 1.5rem;
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.info-box p {
+    margin: 0;
+    color: #b4b8c5;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+    background: #1a1f2e;
+    text-align: center;
+    padding: 2rem;
+    color: #b4b8c5;
+    border-top: 2px solid #3b9eff;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-menu {
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+    .category-boxes,
+    .feature-boxes,
+    .shows-grid {
+        grid-template-columns: 1fr;
+    }
+}

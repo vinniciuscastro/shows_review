@@ -1,0 +1,57 @@
+<%- include('partials/header', { title: 'TV Shows - Shows Review', currentPage: 'tv-shows' }) %>
+
+<div class="page-header">
+    <h1>📺 TV Shows</h1>
+    <p>Discover and review popular TV series</p>
+</div>
+
+<div class="content-section">
+    <div class="shows-grid">
+        <!-- Sample TV show boxes - will be populated from database later -->
+        <div class="show-box">
+            <div class="show-image">📺</div>
+            <div class="show-info">
+                <h3>Breaking Bad</h3>
+                <p class="show-meta">2008-2013 • Crime, Drama</p>
+                <p class="show-rating">⭐ 9.5/10</p>
+                <a href="#" class="btn btn-small">View Details</a>
+            </div>
+        </div>
+
+        <div class="show-box">
+            <div class="show-image">📺</div>
+            <div class="show-info">
+                <h3>Game of Thrones</h3>
+                <p class="show-meta">2011-2019 • Fantasy, Drama</p>
+                <p class="show-rating">⭐ 9.2/10</p>
+                <a href="#" class="btn btn-small">View Details</a>
+            </div>
+        </div>
+
+        <div class="show-box">
+            <div class="show-image">📺</div>
+            <div class="show-info">
+                <h3>The Office</h3>
+                <p class="show-meta">2005-2013 • Comedy</p>
+                <p class="show-rating">⭐ 9.0/10</p>
+                <a href="#" class="btn btn-small">View Details</a>
+            </div>
+        </div>
+
+        <div class="show-box">
+            <div class="show-image">📺</div>
+            <div class="show-info">
+                <h3>Stranger Things</h3>
+                <p class="show-meta">2016-Present • Sci-Fi, Horror</p>
+                <p class="show-rating">⭐ 8.7/10</p>
+                <a href="#" class="btn btn-small">View Details</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="info-box">
+    <p><strong>Note:</strong> This is sample data. TV shows will be loaded from the database once Week 1 tasks are completed!</p>
+</div>
+
+<%- include('partials/footer') %>

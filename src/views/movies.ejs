@@ -1,0 +1,57 @@
+<%- include('partials/header', { title: 'Movies - Shows Review', currentPage: 'movies' }) %>
+
+<div class="page-header">
+    <h1>🎬 Movies</h1>
+    <p>Browse and review your favorite movies</p>
+</div>
+
+<div class="content-section">
+    <div class="shows-grid">
+        <!-- Sample movie boxes - will be populated from database later -->
+        <div class="show-box">
+            <div class="show-image">🎬</div>
+            <div class="show-info">
+                <h3>The Godfather</h3>
+                <p class="show-meta">1972 • Crime, Drama</p>
+                <p class="show-rating">⭐ 9.2/10</p>
+                <a href="#" class="btn btn-small">View Details</a>
+            </div>
+        </div>
+
+        <div class="show-box">
+            <div class="show-image">🎬</div>
+            <div class="show-info">
+                <h3>The Shawshank Redemption</h3>
+                <p class="show-meta">1994 • Drama</p>
+                <p class="show-rating">⭐ 9.3/10</p>
+                <a href="#" class="btn btn-small">View Details</a>
+            </div>
+        </div>
+
+        <div class="show-box">
+            <div class="show-image">🎬</div>
+            <div class="show-info">
+                <h3>The Dark Knight</h3>
+                <p class="show-meta">2008 • Action, Crime</p>
+                <p class="show-rating">⭐ 9.0/10</p>
+                <a href="#" class="btn btn-small">View Details</a>
+            </div>
+        </div>
+
+        <div class="show-box">
+            <div class="show-image">🎬</div>
+            <div class="show-info">
+                <h3>Pulp Fiction</h3>
+                <p class="show-meta">1994 • Crime, Drama</p>
+                <p class="show-rating">⭐ 8.9/10</p>
+                <a href="#" class="btn btn-small">View Details</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="info-box">
+    <p><strong>Note:</strong> This is sample data. Movies will be loaded from the database once Week 1 tasks are completed!</p>
+</div>
+
+<%- include('partials/footer') %>
