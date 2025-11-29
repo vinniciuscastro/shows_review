@@ -13,13 +13,13 @@ export async function getShowsByType(mediaType) {
                 s.end_date,
                 s.media_type,
                 s.image_url,
-                COALESCE(ROUND(AVG(v.score), 1), 0) as average_score,
-                COUNT(v.id) as vote_count,
+                COALESCE(ROUND(AVG(r.score), 1), 0) as average_score,
+                COUNT(r.id) as review_count,
                 ARRAY_AGG(DISTINCT g.name ORDER BY g.name) FILTER (WHERE g.name IS NOT NULL) as genres
             FROM shows s
             LEFT JOIN show_genres sg ON s.id = sg.show_id
             LEFT JOIN genres g ON sg.genre_id = g.id
-            LEFT JOIN votes v ON s.id = v.show_id
+            LEFT JOIN reviews r ON s.id = r.show_id
             WHERE s.media_type = $1
             GROUP BY s.id, s.name, s.start_date, s.end_date, s.media_type, s.image_url
             ORDER BY s.name
@@ -46,13 +46,13 @@ export async function getShowById(showId) {
                 s.end_date,
                 s.media_type,
                 s.image_url,
-                COALESCE(ROUND(AVG(v.score), 1), 0) as average_score,
-                COUNT(v.id) as vote_count,
+                COALESCE(ROUND(AVG(r.score), 1), 0) as average_score,
+                COUNT(r.id) as review_count,
                 ARRAY_AGG(DISTINCT g.name ORDER BY g.name) FILTER (WHERE g.name IS NOT NULL) as genres
             FROM shows s
             LEFT JOIN show_genres sg ON s.id = sg.show_id
             LEFT JOIN genres g ON sg.genre_id = g.id
-            LEFT JOIN votes v ON s.id = v.show_id
+            LEFT JOIN reviews r ON s.id = r.show_id
             WHERE s.id = $1
             GROUP BY s.id, s.name, s.start_date, s.end_date, s.media_type, s.image_url
         `;
@@ -66,12 +66,12 @@ export async function getShowById(showId) {
 }
 
 /**
- * Add a vote for a show
+ * Add a review for a show
  */
-export async function addVote(showId, userId, score) {
+export async function addReview(showId, userId, score) {
     try {
         const query = `
-            INSERT INTO votes (show_id, user_id, score)
+            INSERT INTO reviews (show_id, user_id, score)
             VALUES ($1, $2, $3)
             RETURNING *
         `;
@@ -79,7 +79,7 @@ export async function addVote(showId, userId, score) {
         const result = await pool.query(query, [showId, userId, score]);
         return result.rows[0];
     } catch (error) {
-        console.error('Error adding vote:', error);
+        console.error('Error adding review:', error);
         throw error;
     }
 }

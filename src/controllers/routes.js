@@ -3,7 +3,8 @@ import express from 'express';
 import { renderHome, renderMovies, renderTVShows } from './index.js';
 import { renderRegister, handleRegister } from './forms/registration.js';
 import { renderLogin, handleLogin, handleLogout } from './forms/login.js';
-import { renderRatingPage, handleRating } from './ratingController.js';
+import { renderRatingPage, handleRating } from './rating.js';
+import { renderDashboard } from './dashboard.js';
 import { registerValidation, loginValidation, ratingValidation } from '../middleware/validation.js';
 import { requireGuest, requireAuth } from '../middleware/auth.js';
 
@@ -21,6 +22,9 @@ router.post('/auth/register', requireGuest, registerValidation, handleRegister);
 router.get('/auth/login', requireGuest, renderLogin);
 router.post('/auth/login', requireGuest, loginValidation, handleLogin);
 router.get('/auth/logout', handleLogout);
+
+// Dashboard route
+router.get('/dashboard', requireAuth, renderDashboard);
 
 // Rating routes
 router.get('/rate/:id', requireAuth, renderRatingPage);

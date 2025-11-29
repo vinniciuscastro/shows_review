@@ -57,9 +57,9 @@ export async function createTables() {
         `);
         console.log('✓ Show_genres junction table created');
 
-        // Create votes table
+        // Create reviews table
         await pool.query(`
-            CREATE TABLE IF NOT EXISTS votes (
+            CREATE TABLE IF NOT EXISTS reviews (
                 id SERIAL PRIMARY KEY,
                 show_id INTEGER REFERENCES shows(id) ON DELETE CASCADE,
                 user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
@@ -69,11 +69,11 @@ export async function createTables() {
                 UNIQUE(show_id, user_id)
             )
         `);
-        console.log('✓ Votes table created');
+        console.log('✓ Reviews table created');
 
-        // Create index on votes for better performance
+        // Create index on reviews for better performance
         await pool.query(`
-            CREATE INDEX IF NOT EXISTS idx_votes_show_id ON votes(show_id)
+            CREATE INDEX IF NOT EXISTS idx_reviews_show_id ON reviews(show_id)
         `);
         console.log('✓ Indexes created');
 
@@ -91,7 +91,7 @@ export async function dropTables() {
     try {
         console.log('Dropping all tables...');
 
-        await pool.query('DROP TABLE IF EXISTS votes CASCADE');
+        await pool.query('DROP TABLE IF EXISTS reviews CASCADE');
         await pool.query('DROP TABLE IF EXISTS show_genres CASCADE');
         await pool.query('DROP TABLE IF EXISTS genres CASCADE');
         await pool.query('DROP TABLE IF EXISTS shows CASCADE');

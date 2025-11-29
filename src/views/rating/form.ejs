@@ -3,7 +3,7 @@
 <div class="container">
     <div class="form-container">
         <div class="form-header">
-            <h1><%= existingVote ? 'Update Your Rating' : 'Rate This Show' %></h1>
+            <h1><%= existingReview ? 'Update Your Rating' : 'Rate This Show' %></h1>
             <p><%= show.name %> (<%= show.start_date %>)</p>
         </div>
 
@@ -48,7 +48,7 @@
             </div>
 
             <button type="submit" class="btn-submit">
-                <%= existingVote ? 'Update Rating' : 'Submit Rating' %>
+                <%= existingReview ? 'Update Rating' : 'Submit Rating' %>
             </button>
         </form>
 
