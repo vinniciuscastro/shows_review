@@ -7,51 +7,31 @@
 
 <div class="content-section">
     <div class="shows-grid">
-        <!-- Sample movie boxes - will be populated from database later -->
-        <div class="show-box">
-            <div class="show-image">🎬</div>
-            <div class="show-info">
-                <h3>Dune: Part 1</h3>
-                <p class="show-meta">2021 • Sci-Fi, Adventure, Action, Fantasy, Drama</p>
-                <p class="show-rating">⭐ 9.0/10</p>
-                <a href="#" class="btn btn-small">View Details</a>
-            </div>
-        </div>
-
-        <div class="show-box">
-            <div class="show-image">🎬</div>
-            <div class="show-info">
-                <h3>Dune: Part 2</h3>
-                <p class="show-meta">2024 • Sci-Fi, Adventure, Action, Fantasy, Drama</p>
-                <p class="show-rating">⭐ 9.4/10</p>
-                <a href="#" class="btn btn-small">View Details</a>
-            </div>
-        </div>
-
-        <div class="show-box">
-            <div class="show-image">🎬</div>
-            <div class="show-info">
-                <h3>Inception</h3>
-                <p class="show-meta">2010 • Sci-Fi, Mystery & Thriller, Action</p>
-                <p class="show-rating">⭐ 8.0/10</p>
-                <a href="#" class="btn btn-small">View Details</a>
-            </div>
-        </div>
-
-        <div class="show-box">
-            <div class="show-image">🎬</div>
-            <div class="show-info">
-                <h3>Wicked</h3>
-                <p class="show-meta">2024 • Kids & Family, Musical, Fantasy, Adventure</p>
-                <p class="show-rating">⭐ 8.9/10</p>
-                <a href="#" class="btn btn-small">View Details</a>
-            </div>
-        </div>
+        <% if (shows && shows.length > 0) { %>
+            <% shows.forEach(show => { %>
+                <div class="show-box">
+                    <div class="show-image">🎬</div>
+                    <div class="show-info">
+                        <h3><%= show.name %></h3>
+                        <p class="show-meta">
+                            <%= show.start_date %><% if (show.end_date && show.end_date !== show.start_date) { %>-<%= show.end_date %><% } %>
+                            <% if (show.genres && show.genres.length > 0) { %>
+                                • <%= show.genres.join(', ') %>
+                            <% } %>
+                        </p>
+                        <p class="show-rating">⭐ <%= show.average_score %>/10 (<%= show.vote_count %> votes)</p>
+                        <a href="#" class="btn btn-small">View Details</a>
+                    </div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>No movies found. Please run the database setup script.</p>
+        <% } %>
     </div>
 </div>
 
 <div class="info-box">
-    <p><strong>Note:</strong> This is sample data. Movies will be loaded from the database once Week 1 tasks are completed!</p>
+    <p><strong>Success!</strong> Movies are now loaded from the database!</p>
 </div>
 
 <%- include('partials/footer') %>

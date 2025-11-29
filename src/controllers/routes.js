@@ -1,28 +1,14 @@
-/**
- * Routes Controller
- * All route handlers in one place
- */
+import express from 'express';
+// Import route handlers from controllers
+import { renderHome, renderMovies, renderTVShows } from './index.js';
 
-// Home page handler
-export function renderHome(req, res) {
-    res.render('home', {
-        title: 'Home - Shows Review',
-        currentPage: 'home'
-    });
-}
+// Create router
+const router = express.Router();
 
-// Movies page handler
-export function renderMovies(req, res) {
-    res.render('movies', {
-        title: 'Movies - Shows Review',
-        currentPage: 'movies'
-    });
-}
+// Define routes
+router.get('/', renderHome);
+router.get('/movies', renderMovies);
+router.get('/tv-shows', renderTVShows);
 
-// TV Shows page handler
-export function renderTVShows(req, res) {
-    res.render('tv-shows', {
-        title: 'TV Shows - Shows Review',
-        currentPage: 'tv-shows'
-    });
-}
+// Export router
+export default router;

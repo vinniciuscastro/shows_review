@@ -2,6 +2,7 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import routes from './src/controllers/routes.js';
 
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -21,13 +22,18 @@ app.use(express.json());
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Import route handlers from controllers
-import { renderHome, renderMovies, renderTVShows } from './src/controllers/routes.js';
+app.use('/', routes);
 
-// Define routes
-app.get('/', renderHome);
-app.get('/movies', renderMovies);
-app.get('/tv-shows', renderTVShows);
+/**
+ * Error Handling
+ */
+
+// 404 handler
+app.use((req, res, next) => {
+    const err = new Error('Page Not Found');
+    err.status = 404;
+    next(err);
+});
 
 // Define the port number the server will listen on
 const PORT = process.env.PORT || 3000;

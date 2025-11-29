@@ -7,51 +7,31 @@
 
 <div class="content-section">
     <div class="shows-grid">
-        <!-- Sample TV show boxes - will be populated from database later -->
-        <div class="show-box">
-            <div class="show-image">📺</div>
-            <div class="show-info">
-                <h3>Breaking Bad</h3>
-                <p class="show-meta">2008-2013 • Crime, Drama</p>
-                <p class="show-rating">⭐ 9.5/10</p>
-                <a href="#" class="btn btn-small">View Details</a>
-            </div>
-        </div>
-
-        <div class="show-box">
-            <div class="show-image">📺</div>
-            <div class="show-info">
-                <h3>Game of Thrones</h3>
-                <p class="show-meta">2011-2019 • Fantasy, Drama</p>
-                <p class="show-rating">⭐ 9.2/10</p>
-                <a href="#" class="btn btn-small">View Details</a>
-            </div>
-        </div>
-
-        <div class="show-box">
-            <div class="show-image">📺</div>
-            <div class="show-info">
-                <h3>The Office</h3>
-                <p class="show-meta">2005-2013 • Comedy</p>
-                <p class="show-rating">⭐ 9.0/10</p>
-                <a href="#" class="btn btn-small">View Details</a>
-            </div>
-        </div>
-
-        <div class="show-box">
-            <div class="show-image">📺</div>
-            <div class="show-info">
-                <h3>Stranger Things</h3>
-                <p class="show-meta">2016-Present • Sci-Fi, Horror</p>
-                <p class="show-rating">⭐ 8.7/10</p>
-                <a href="#" class="btn btn-small">View Details</a>
-            </div>
-        </div>
+        <% if (shows && shows.length > 0) { %>
+            <% shows.forEach(show => { %>
+                <div class="show-box">
+                    <div class="show-image">📺</div>
+                    <div class="show-info">
+                        <h3><%= show.name %></h3>
+                        <p class="show-meta">
+                            <%= show.start_date %><% if (show.end_date) { %>-<%= show.end_date %><% } else { %>-Present<% } %>
+                            <% if (show.genres && show.genres.length > 0) { %>
+                                • <%= show.genres.join(', ') %>
+                            <% } %>
+                        </p>
+                        <p class="show-rating">⭐ <%= show.average_score %>/10 (<%= show.vote_count %> votes)</p>
+                        <a href="#" class="btn btn-small">View Details</a>
+                    </div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>No TV shows found. Please run the database setup script.</p>
+        <% } %>
     </div>
 </div>
 
 <div class="info-box">
-    <p><strong>Note:</strong> This is sample data. TV shows will be loaded from the database once Week 1 tasks are completed!</p>
+    <p><strong>Success!</strong> TV shows are now loaded from the database!</p>
 </div>
 
 <%- include('partials/footer') %>
