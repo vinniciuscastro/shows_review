@@ -1,5 +1,6 @@
 import { createShow, getOrCreateGenre, addGenresToShow } from '../models/showModel.js';
 import pool from '../config/database.js';
+import bcrypt from 'bcryptjs';
 
 /**
  * Check if a show already exists by name and media type
@@ -11,11 +12,53 @@ async function showExists(name, mediaType) {
 }
 
 /**
+ * Seed admin user
+ */
+async function seedAdmin() {
+    try {
+        // Check if admin already exists
+        const checkQuery = 'SELECT EXISTS(SELECT 1 FROM users WHERE username = $1) as exists';
+        const checkResult = await pool.query(checkQuery, ['admin_user']);
+
+        if (checkResult.rows[0].exists) {
+            console.log('⊘ Admin user already exists');
+            return;
+        }
+
+        // Create admin user
+        const passwordHash = await bcrypt.hash('1234', 10);
+        const query = `
+            INSERT INTO users (username, email, first_name, last_name, password_hash, is_admin)
+            VALUES ($1, $2, $3, $4, $5, $6)
+            RETURNING id, username
+        `;
+
+        const result = await pool.query(query, [
+            'admin_user',
+            'admin@showsreview.com',
+            'Admin',
+            'User',
+            passwordHash,
+            true
+        ]);
+
+        console.log('✓ Created admin user: admin_user');
+    } catch (error) {
+        console.error('Error seeding admin:', error);
+        throw error;
+    }
+}
+
+/**
  * Seed the database with initial shows and movies
  */
 export async function seedDatabase() {
     try {
         console.log('Starting database seeding...');
+
+        // Seed admin user first
+        console.log('\nSeeding admin user...');
+        await seedAdmin();
 
         // Movies data from the frontend
         const movies = [

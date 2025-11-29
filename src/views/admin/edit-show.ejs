@@ -1,0 +1,98 @@
+<%- include('../partials/header', { title: title, currentPage: currentPage }) %>
+
+<div class="container">
+    <div class="form-container">
+        <div class="form-header">
+            <h1>Edit Show</h1>
+            <p><%= show.name %></p>
+        </div>
+
+        <% if (errors && errors.length > 0) { %>
+            <div class="form-error">
+                <ul>
+                    <% errors.forEach(error => { %>
+                        <li><%= error.msg %></li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% } %>
+
+        <form action="/admin/edit/<%= show.id %>" method="POST">
+            <div class="form-group">
+                <label for="name">Name *</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value="<%= formData.name %>"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="mediaType">Type *</label>
+                <select id="mediaType" name="mediaType" required style="width: 100%; padding: 0.8rem; background: #242938; border: 2px solid #2a3040; color: #e4e6eb; font-size: 1rem;">
+                    <option value="movie" <%= formData.media_type === 'movie' ? 'selected' : '' %>>Movie</option>
+                    <option value="tv-show" <%= formData.media_type === 'tv-show' ? 'selected' : '' %>>TV Show</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="startDate">Start Year *</label>
+                <input
+                    type="number"
+                    id="startDate"
+                    name="startDate"
+                    min="1900"
+                    max="2100"
+                    value="<%= formData.start_date %>"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="endDate">End Year (Optional)</label>
+                <input
+                    type="number"
+                    id="endDate"
+                    name="endDate"
+                    min="1900"
+                    max="2100"
+                    value="<%= formData.end_date || '' %>"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="imageUrl">Image URL (Optional)</label>
+                <input
+                    type="text"
+                    id="imageUrl"
+                    name="imageUrl"
+                    value="<%= formData.image_url || '' %>"
+                    placeholder="/images/example.jpg"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="genres">Genres (comma-separated)</label>
+                <input
+                    type="text"
+                    id="genres"
+                    name="genres"
+                    value="<%= formData.genres ? formData.genres.join(', ') : '' %>"
+                    placeholder="Action, Drama, Sci-Fi"
+                >
+            </div>
+
+            <button type="submit" class="btn-submit">Update Show</button>
+        </form>
+
+        <div class="form-footer">
+            <p>
+                <a href="/admin">Cancel and go back to admin panel</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

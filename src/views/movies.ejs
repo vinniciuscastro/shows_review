@@ -23,12 +23,15 @@
                                 • <%= show.genres.join(', ') %>
                             <% } %>
                         </p>
-                        <p class="show-rating">⭐ <%= show.average_score %>/10 (<%= show.vote_count %> votes)</p>
-                        <% if (locals.isAuthenticated) { %>
-                            <a href="/rate/<%= show.id %>" class="btn btn-small">Rate Movie</a>
-                        <% } else { %>
-                            <a href="/auth/login" class="btn btn-small">Login to Rate</a>
-                        <% } %>
+                        <p class="show-rating">⭐ <%= show.average_score %>/10 (<%= show.review_count %> reviews)</p>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <a href="/reviews/<%= show.id %>" class="btn btn-small" style="background: #3a4050;">View Reviews</a>
+                            <% if (locals.isAuthenticated) { %>
+                                <a href="/rate/<%= show.id %>" class="btn btn-small">Rate Movie</a>
+                            <% } else { %>
+                                <a href="/auth/login" class="btn btn-small">Login to Rate</a>
+                            <% } %>
+                        </div>
                     </div>
                 </div>
             <% }); %>

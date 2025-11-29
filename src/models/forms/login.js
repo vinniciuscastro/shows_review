@@ -10,7 +10,7 @@ import bcrypt from 'bcryptjs';
 export async function authenticateUser(identifier, password) {
     try {
         const query = `
-            SELECT id, username, email, first_name, last_name, password_hash, created_at
+            SELECT id, username, email, first_name, last_name, password_hash, is_admin, created_at
             FROM users
             WHERE LOWER(username) = LOWER($1) OR LOWER(email) = LOWER($1)
         `;

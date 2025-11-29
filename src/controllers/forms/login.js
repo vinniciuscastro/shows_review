@@ -47,10 +47,17 @@ export async function handleLogin(req, res) {
         req.session.userId = user.id;
         req.session.username = user.username;
         req.session.firstName = user.first_name;
+        req.session.isAdmin = user.is_admin || false;
 
-        // Flash success message and redirect to dashboard
+        // Flash success message and redirect
         req.flash('success', `Welcome back, ${user.first_name}!`);
-        res.redirect('/dashboard');
+
+        // Redirect admin to admin panel, regular users to dashboard
+        if (user.is_admin) {
+            res.redirect('/admin');
+        } else {
+            res.redirect('/dashboard');
+        }
     } catch (error) {
         console.error('Login error:', error);
         res.status(500).render('errors/500', {

@@ -14,7 +14,7 @@ export async function getShowsByType(mediaType) {
                 s.media_type,
                 s.image_url,
                 COALESCE(ROUND(AVG(r.score), 1), 0) as average_score,
-                COUNT(r.id) as review_count,
+                COUNT(DISTINCT r.id) as review_count,
                 ARRAY_AGG(DISTINCT g.name ORDER BY g.name) FILTER (WHERE g.name IS NOT NULL) as genres
             FROM shows s
             LEFT JOIN show_genres sg ON s.id = sg.show_id
@@ -47,7 +47,7 @@ export async function getShowById(showId) {
                 s.media_type,
                 s.image_url,
                 COALESCE(ROUND(AVG(r.score), 1), 0) as average_score,
-                COUNT(r.id) as review_count,
+                COUNT(DISTINCT r.id) as review_count,
                 ARRAY_AGG(DISTINCT g.name ORDER BY g.name) FILTER (WHERE g.name IS NOT NULL) as genres
             FROM shows s
             LEFT JOIN show_genres sg ON s.id = sg.show_id
