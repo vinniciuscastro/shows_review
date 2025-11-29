@@ -1,0 +1,54 @@
+<%- include('../../partials/header', { title: 'Login', currentPage: 'login' }) %>
+
+<div class="container">
+    <div class="form-container">
+        <div class="form-header">
+            <h1>Welcome Back</h1>
+            <p>Login to your Shows Review account</p>
+        </div>
+
+        <% if (errors && errors.length > 0) { %>
+            <div class="form-error">
+                <ul>
+                    <% errors.forEach(error => { %>
+                        <li><%= error.msg %></li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% } %>
+
+        <form action="/auth/login" method="POST">
+            <div class="form-group">
+                <label for="identifier">Username or Email</label>
+                <input
+                    type="text"
+                    id="identifier"
+                    name="identifier"
+                    placeholder="Enter your username or email"
+                    value="<%= formData.identifier || '' %>"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="btn-submit">Login</button>
+        </form>
+
+        <div class="form-footer">
+            <p>Don't have an account?</p>
+            <a href="/auth/register">Create an account</a>
+        </div>
+    </div>
+</div>
+
+<%- include('../../partials/footer') %>

@@ -7,6 +7,21 @@ export async function createTables() {
     try {
         console.log('Creating database tables...');
 
+        // Create users table
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS users (
+                id SERIAL PRIMARY KEY,
+                username VARCHAR(50) NOT NULL UNIQUE,
+                email VARCHAR(255) NOT NULL UNIQUE,
+                first_name VARCHAR(100) NOT NULL,
+                last_name VARCHAR(100) NOT NULL,
+                password_hash VARCHAR(255) NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+        console.log('✓ Users table created');
+
         // Create shows table
         await pool.query(`
             CREATE TABLE IF NOT EXISTS shows (
@@ -15,6 +30,7 @@ export async function createTables() {
                 start_date INTEGER NOT NULL,
                 end_date INTEGER,
                 media_type VARCHAR(50) NOT NULL CHECK (media_type IN ('movie', 'tv-show')),
+                image_url VARCHAR(255),
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
@@ -46,9 +62,11 @@ export async function createTables() {
             CREATE TABLE IF NOT EXISTS votes (
                 id SERIAL PRIMARY KEY,
                 show_id INTEGER REFERENCES shows(id) ON DELETE CASCADE,
-                user_id VARCHAR(255) NOT NULL,
-                score DECIMAL(3, 1) NOT NULL CHECK (score >= 0 AND score <= 10),
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+                score DECIMAL(3, 1) NOT NULL CHECK (score >= 1 AND score <= 10),
+                description TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                UNIQUE(show_id, user_id)
             )
         `);
         console.log('✓ Votes table created');
@@ -77,6 +95,7 @@ export async function dropTables() {
         await pool.query('DROP TABLE IF EXISTS show_genres CASCADE');
         await pool.query('DROP TABLE IF EXISTS genres CASCADE');
         await pool.query('DROP TABLE IF EXISTS shows CASCADE');
+        await pool.query('DROP TABLE IF EXISTS users CASCADE');
 
         console.log('All tables dropped successfully!');
     } catch (error) {

@@ -10,7 +10,11 @@
         <% if (shows && shows.length > 0) { %>
             <% shows.forEach(show => { %>
                 <div class="show-box">
-                    <div class="show-image">🎬</div>
+                    <% if (show.image_url) { %>
+                        <img src="<%= show.image_url %>" alt="<%= show.name %>" class="show-image">
+                    <% } else { %>
+                        <div class="show-image">🎬</div>
+                    <% } %>
                     <div class="show-info">
                         <h3><%= show.name %></h3>
                         <p class="show-meta">
@@ -20,7 +24,11 @@
                             <% } %>
                         </p>
                         <p class="show-rating">⭐ <%= show.average_score %>/10 (<%= show.vote_count %> votes)</p>
-                        <a href="#" class="btn btn-small">View Details</a>
+                        <% if (locals.isAuthenticated) { %>
+                            <a href="/rate/<%= show.id %>" class="btn btn-small">Rate Movie</a>
+                        <% } else { %>
+                            <a href="/auth/login" class="btn btn-small">Login to Rate</a>
+                        <% } %>
                     </div>
                 </div>
             <% }); %>

@@ -12,6 +12,7 @@ export async function getShowsByType(mediaType) {
                 s.start_date,
                 s.end_date,
                 s.media_type,
+                s.image_url,
                 COALESCE(ROUND(AVG(v.score), 1), 0) as average_score,
                 COUNT(v.id) as vote_count,
                 ARRAY_AGG(DISTINCT g.name ORDER BY g.name) FILTER (WHERE g.name IS NOT NULL) as genres
@@ -20,7 +21,7 @@ export async function getShowsByType(mediaType) {
             LEFT JOIN genres g ON sg.genre_id = g.id
             LEFT JOIN votes v ON s.id = v.show_id
             WHERE s.media_type = $1
-            GROUP BY s.id, s.name, s.start_date, s.end_date, s.media_type
+            GROUP BY s.id, s.name, s.start_date, s.end_date, s.media_type, s.image_url
             ORDER BY s.name
         `;
 
@@ -44,6 +45,7 @@ export async function getShowById(showId) {
                 s.start_date,
                 s.end_date,
                 s.media_type,
+                s.image_url,
                 COALESCE(ROUND(AVG(v.score), 1), 0) as average_score,
                 COUNT(v.id) as vote_count,
                 ARRAY_AGG(DISTINCT g.name ORDER BY g.name) FILTER (WHERE g.name IS NOT NULL) as genres
@@ -52,7 +54,7 @@ export async function getShowById(showId) {
             LEFT JOIN genres g ON sg.genre_id = g.id
             LEFT JOIN votes v ON s.id = v.show_id
             WHERE s.id = $1
-            GROUP BY s.id, s.name, s.start_date, s.end_date, s.media_type
+            GROUP BY s.id, s.name, s.start_date, s.end_date, s.media_type, s.image_url
         `;
 
         const result = await pool.query(query, [showId]);
@@ -85,15 +87,15 @@ export async function addVote(showId, userId, score) {
 /**
  * Create a new show
  */
-export async function createShow(name, startDate, endDate, mediaType) {
+export async function createShow(name, startDate, endDate, mediaType, imageUrl = null) {
     try {
         const query = `
-            INSERT INTO shows (name, start_date, end_date, media_type)
-            VALUES ($1, $2, $3, $4)
+            INSERT INTO shows (name, start_date, end_date, media_type, image_url)
+            VALUES ($1, $2, $3, $4, $5)
             RETURNING *
         `;
 
-        const result = await pool.query(query, [name, startDate, endDate, mediaType]);
+        const result = await pool.query(query, [name, startDate, endDate, mediaType, imageUrl]);
         return result.rows[0];
     } catch (error) {
         console.error('Error creating show:', error);

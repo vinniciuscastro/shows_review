@@ -1,13 +1,21 @@
-<%- include('../partials/header') %>
-    <h1>Something Went Wrong</h1>
-    <p>We are experiencing technical difficulties. Our team has been notified and is working to fix the issue.</p>
-    <p><a href="/">Return to homepage</a></p>
+<%- include('../partials/header', { title: '500 - Server Error', currentPage: 'error' }) %>
 
-    <% if (NODE_ENV === 'development') { %>
-        <details open>
-            <summary>Error Details (Development Only)</summary>
-            <pre><%= error %></pre>
-            <pre><%= stack %></pre>
-        </details>
-    <% } %>
+<div class="container">
+    <div class="content-section" style="text-align: center; padding: 3rem;">
+        <h1>Something Went Wrong</h1>
+        <p>We are experiencing technical difficulties. Our team has been notified and is working to fix the issue.</p>
+        <p><a href="/" class="btn">Return to homepage</a></p>
+
+        <% if (typeof error !== 'undefined' && error) { %>
+            <details style="margin-top: 2rem; text-align: left;">
+                <summary style="cursor: pointer; color: #3b9eff;">Error Details (Development)</summary>
+                <pre style="background: #1a1f2e; padding: 1rem; overflow: auto; margin-top: 1rem;"><%= error %></pre>
+                <% if (typeof stack !== 'undefined' && stack) { %>
+                    <pre style="background: #1a1f2e; padding: 1rem; overflow: auto; margin-top: 1rem;"><%= stack %></pre>
+                <% } %>
+            </details>
+        <% } %>
+    </div>
+</div>
+
 <%- include('../partials/footer') %>
