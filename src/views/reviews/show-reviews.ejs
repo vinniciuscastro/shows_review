@@ -11,7 +11,11 @@
 
 <div class="content-section">
     <div style="margin-bottom: 2rem;">
-        <a href="/rate/<%= show.id %>" class="btn">Write a Review</a>
+        <% if (locals.isAuthenticated) { %>
+            <a href="/rate/<%= show.id %>" class="btn">Write a Review</a>
+        <% } else { %>
+            <a href="/review-choice/<%= show.id %>" class="btn">Write a Review</a>
+        <% } %>
         <a href="/<%= show.media_type === 'movie' ? 'movies' : 'tv-shows' %>" class="btn" style="margin-left: 0.5rem; background: #3a4050;">Back to <%= show.media_type === 'movie' ? 'Movies' : 'TV Shows' %></a>
     </div>
 
@@ -73,11 +77,13 @@
     <% } else { %>
         <div class="info-box">
             <p>No reviews yet. Be the first to review this <%= show.media_type === 'movie' ? 'movie' : 'TV show' %>!</p>
-            <% if (locals.isAuthenticated) { %>
-                <p style="margin-top: 1rem;">
+            <p style="margin-top: 1rem;">
+                <% if (locals.isAuthenticated) { %>
                     <a href="/rate/<%= show.id %>" class="btn">Write a Review</a>
-                </p>
-            <% } %>
+                <% } else { %>
+                    <a href="/review-choice/<%= show.id %>" class="btn">Write a Review</a>
+                <% } %>
+            </p>
         </div>
     <% } %>
 </div>

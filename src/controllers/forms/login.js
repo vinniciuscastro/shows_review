@@ -5,11 +5,14 @@ import { authenticateUser } from '../../models/forms/login.js';
  * Render the login page
  */
 export function renderLogin(req, res) {
+    const redirect = req.query.redirect || null;
+
     res.render('forms/login/form', {
         title: 'Login',
         currentPage: 'login',
         errors: [],
-        formData: {}
+        formData: {},
+        redirect: redirect
     });
 }
 
@@ -18,13 +21,15 @@ export function renderLogin(req, res) {
  */
 export async function handleLogin(req, res) {
     const errors = validationResult(req);
+    const redirect = req.body.redirect || req.query.redirect || null;
 
     if (!errors.isEmpty()) {
         return res.status(400).render('forms/login/form', {
             title: 'Login',
             currentPage: 'login',
             errors: errors.array(),
-            formData: req.body
+            formData: req.body,
+            redirect: redirect
         });
     }
 
@@ -39,7 +44,8 @@ export async function handleLogin(req, res) {
                 title: 'Login',
                 currentPage: 'login',
                 errors: [{ msg: 'Invalid username/email or password' }],
-                formData: req.body
+                formData: req.body,
+                redirect: redirect
             });
         }
 
@@ -49,11 +55,13 @@ export async function handleLogin(req, res) {
         req.session.firstName = user.first_name;
         req.session.isAdmin = user.is_admin || false;
 
-        // Flash success message and redirect
+        // Flash success message
         req.flash('success', `Welcome back, ${user.first_name}!`);
 
-        // Redirect admin to admin panel, regular users to dashboard
-        if (user.is_admin) {
+        // Redirect based on redirect parameter or default behavior
+        if (redirect) {
+            res.redirect(redirect);
+        } else if (user.is_admin) {
             res.redirect('/admin');
         } else {
             res.redirect('/dashboard');

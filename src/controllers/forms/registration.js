@@ -5,11 +5,14 @@ import { registerUser, usernameExists, emailExists } from '../../models/forms/re
  * Render the registration page
  */
 export function renderRegister(req, res) {
+    const redirect = req.query.redirect || null;
+
     res.render('forms/registration/form', {
         title: 'Register',
         currentPage: 'register',
         errors: [],
-        formData: {}
+        formData: {},
+        redirect: redirect
     });
 }
 
@@ -18,13 +21,15 @@ export function renderRegister(req, res) {
  */
 export async function handleRegister(req, res) {
     const errors = validationResult(req);
+    const redirect = req.body.redirect || req.query.redirect || null;
 
     if (!errors.isEmpty()) {
         return res.status(400).render('forms/registration/form', {
             title: 'Register',
             currentPage: 'register',
             errors: errors.array(),
-            formData: req.body
+            formData: req.body,
+            redirect: redirect
         });
     }
 
@@ -38,7 +43,8 @@ export async function handleRegister(req, res) {
                 title: 'Register',
                 currentPage: 'register',
                 errors: [{ msg: 'Username is already taken' }],
-                formData: req.body
+                formData: req.body,
+                redirect: redirect
             });
         }
 
@@ -49,7 +55,8 @@ export async function handleRegister(req, res) {
                 title: 'Register',
                 currentPage: 'register',
                 errors: [{ msg: 'Email is already registered' }],
-                formData: req.body
+                formData: req.body,
+                redirect: redirect
             });
         }
 
@@ -61,9 +68,15 @@ export async function handleRegister(req, res) {
         req.session.username = user.username;
         req.session.firstName = user.first_name;
 
-        // Flash success message and redirect to dashboard
+        // Flash success message
         req.flash('success', `Welcome to Shows Review, ${user.first_name}!`);
-        res.redirect('/dashboard');
+
+        // Redirect based on redirect parameter or default to dashboard
+        if (redirect) {
+            res.redirect(redirect);
+        } else {
+            res.redirect('/dashboard');
+        }
     } catch (error) {
         console.error('Registration error:', error);
         res.status(500).render('errors/500', {

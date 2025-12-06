@@ -182,3 +182,33 @@ export async function handleDeleteShow(req, res) {
         res.redirect('/admin');
     }
 }
+
+/**
+ * Handle deleting a guest review (admin only)
+ */
+export async function handleDeleteGuestReview(req, res) {
+    const reviewId = req.params.id;
+
+    try {
+        // Get the show_id before deleting so we can redirect back
+        const getReviewQuery = 'SELECT show_id FROM reviews WHERE id = $1 AND user_id IS NULL';
+        const reviewResult = await pool.query(getReviewQuery, [reviewId]);
+
+        if (reviewResult.rows.length === 0) {
+            req.flash('error', 'Guest review not found');
+            return res.redirect('/admin');
+        }
+
+        const showId = reviewResult.rows[0].show_id;
+
+        // Delete the guest review
+        await pool.query('DELETE FROM reviews WHERE id = $1 AND user_id IS NULL', [reviewId]);
+
+        req.flash('success', 'Guest review deleted successfully');
+        res.redirect(`/reviews/${showId}`);
+    } catch (error) {
+        console.error('Error deleting guest review:', error);
+        req.flash('error', 'Failed to delete guest review');
+        res.redirect('/admin');
+    }
+}

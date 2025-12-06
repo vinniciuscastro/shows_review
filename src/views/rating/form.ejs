@@ -7,6 +7,16 @@
             <p><%= show.name %> (<%= show.start_date %>)</p>
         </div>
 
+        <% if (isGuest) { %>
+            <div style="background: #2a3f5f; border: 2px solid #3a5f8f; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <h3 style="margin: 0 0 0.5rem 0; color: #4a9eff;">⚠️ Posting as Guest</h3>
+                <p style="margin: 0; color: #b4b8c5;">
+                    Guest reviews cannot be edited or deleted.
+                    <a href="/auth/login?redirect=/rate/<%= show.id %>" style="color: #4a9eff; text-decoration: underline;">Login</a> to manage your reviews.
+                </p>
+            </div>
+        <% } %>
+
         <% if (errors && errors.length > 0) { %>
             <div class="form-error">
                 <ul>

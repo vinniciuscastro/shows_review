@@ -14,8 +14,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "db:setup": "node src/database/setup.js",
-    "db:reset": "node src/database/setup.js reset"
+    "db:setup": "node src/models/setup.js",
+    "db:reset": "node src/models/setup.js reset"
   },
   "keywords": [],
   "author": "",

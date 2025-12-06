@@ -5,8 +5,9 @@ import { renderRegister, handleRegister } from './forms/registration.js';
 import { renderLogin, handleLogin, handleLogout } from './forms/login.js';
 import { renderRatingPage, handleRating } from './rating.js';
 import { renderDashboard, handleDeleteReview } from './dashboard.js';
-import { renderAdminPanel, renderAddShowForm, handleAddShow, renderEditShowForm, handleEditShow, handleDeleteShow } from './admin.js';
+import { renderAdminPanel, renderAddShowForm, handleAddShow, renderEditShowForm, handleEditShow, handleDeleteShow, handleDeleteGuestReview } from './admin.js';
 import { renderShowReviews, handleDeleteReviewFromShowPage } from './reviews.js';
+import { renderReviewChoice } from './reviewChoice.js';
 import { registerValidation, loginValidation, ratingValidation } from '../middleware/validation.js';
 import { requireGuest, requireAuth } from '../middleware/auth.js';
 import { requireAdmin } from '../middleware/adminAuth.js';
@@ -30,6 +31,9 @@ router.get('/auth/logout', handleLogout);
 router.get('/dashboard', requireAuth, renderDashboard);
 router.post('/review/delete/:id', requireAuth, handleDeleteReview);
 
+// Review choice page - shows login vs guest options
+router.get('/review-choice/:id', renderReviewChoice);
+
 // Rating routes (open to guests and logged-in users)
 router.get('/rate/:id', renderRatingPage);
 router.post('/rate/:id', ratingValidation, handleRating);
@@ -45,6 +49,7 @@ router.post('/admin/add-show', requireAdmin, handleAddShow);
 router.get('/admin/edit/:id', requireAdmin, renderEditShowForm);
 router.post('/admin/edit/:id', requireAdmin, handleEditShow);
 router.post('/admin/delete/:id', requireAdmin, handleDeleteShow);
+router.post('/admin/delete-review/:id', requireAdmin, handleDeleteGuestReview);
 
 // Export router
 export default router;

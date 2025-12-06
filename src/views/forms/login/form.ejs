@@ -18,6 +18,10 @@
         <% } %>
 
         <form action="/auth/login" method="POST">
+            <% if (locals.redirect) { %>
+                <input type="hidden" name="redirect" value="<%= redirect %>">
+            <% } %>
+
             <div class="form-group">
                 <label for="identifier">Username or Email</label>
                 <input

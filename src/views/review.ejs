@@ -1,0 +1,140 @@
+<%- include('partials/header', { title: title, currentPage: currentPage }) %>
+
+<div class="container" style="max-width: 800px; margin: 3rem auto; padding: 2rem;">
+    <div style="text-align: center; margin-bottom: 3rem;">
+        <h1 style="color: #e4e6eb; font-size: 2.5rem; margin-bottom: 1rem;">
+            Review <%= show.name %>
+        </h1>
+        <p style="color: #b4b8c5; font-size: 1.1rem;">
+            <%= show.start_date %><% if (show.end_date && show.end_date !== show.start_date) { %> - <%= show.end_date %><% } %>
+        </p>
+        <p style="color: #888; margin-top: 1rem;">
+            How would you like to submit your review?
+        </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+
+        <!-- Sign In Option -->
+        <div style="
+            background: linear-gradient(135deg, #4a9eff 0%, #3a7edf 100%);
+            border: 3px solid #5aafff;
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(74, 158, 255, 0.3);
+        " onmouseover="this.style.transform='translateY(-5px) scale(1.02)'; this.style.boxShadow='0 8px 25px rgba(74, 158, 255, 0.5)'"
+           onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 15px rgba(74, 158, 255, 0.3)'"
+           onclick="window.location.href='/auth/login?redirect=/rate/<%= show.id %>'">
+
+            <h2 style="color: white; font-size: 1.8rem; margin-bottom: 1rem; font-weight: bold;">
+                Sign In
+            </h2>
+
+            <p style="color: rgba(255, 255, 255, 0.95); font-size: 1.05rem; line-height: 1.6; margin-bottom: 1.5rem;">
+                Login to your account to post a review
+            </p>
+
+            <div style="background: rgba(255, 255, 255, 0.2); border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+                <p style="color: white; font-size: 0.95rem; margin: 0; font-weight: 500;">
+                    ✅ Edit your reviews anytime<br>
+                    ✅ Delete your reviews<br>
+                    ✅ Manage all your ratings
+                </p>
+            </div>
+
+            <div style="
+                background: white;
+                color: #4a9eff;
+                padding: 0.8rem 2rem;
+                border-radius: 8px;
+                font-weight: bold;
+                font-size: 1.1rem;
+                display: inline-block;
+                margin-top: 0.5rem;
+            ">
+                Login Now →
+            </div>
+        </div>
+
+        <!-- Guest Review Option -->
+        <div style="
+            background: #2a3040;
+            border: 3px solid #3a4050;
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        " onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#4a5060'"
+           onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#3a4050'"
+           onclick="window.location.href='/rate/<%= show.id %>'">
+
+            <h2 style="color: #e4e6eb; font-size: 1.8rem; margin-bottom: 1rem; font-weight: bold;">
+                Review as Guest
+            </h2>
+
+            <p style="color: #b4b8c5; font-size: 1.05rem; line-height: 1.6; margin-bottom: 1.5rem;">
+                Post a quick review without an account
+            </p>
+
+            <!-- Warning Box -->
+            <div style="
+                background: #3a2f2f;
+                border: 2px solid #ff6b6b;
+                border-radius: 8px;
+                padding: 1rem;
+                margin-bottom: 1.5rem;
+            ">
+                <p style="color: #ff6b6b; font-size: 0.9rem; margin: 0; font-weight: 500;">
+                    ⚠️ <strong>Warning:</strong><br>
+                    Guest reviews cannot be edited or deleted after posting
+                </p>
+            </div>
+
+            <div style="
+                background: #3a4050;
+                color: #e4e6eb;
+                padding: 0.8rem 2rem;
+                border-radius: 8px;
+                font-weight: bold;
+                font-size: 1.1rem;
+                display: inline-block;
+            ">
+                Continue as Guest →
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Additional Options -->
+    <div style="text-align: center; padding-top: 2rem; border-top: 2px solid #2a3040;">
+        <p style="color: #888; margin-bottom: 1rem;">
+            Don't have an account yet?
+        </p>
+        <a href="/auth/register?redirect=/rate/<%= show.id %>" style="
+            color: #4a9eff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border: 2px solid #4a9eff;
+            border-radius: 6px;
+            display: inline-block;
+            transition: all 0.3s;
+        " onmouseover="this.style.background='#4a9eff'; this.style.color='white'"
+           onmouseout="this.style.background='transparent'; this.style.color='#4a9eff'">
+            Create an Account
+        </a>
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+        <a href="/reviews/<%= show.id %>" style="color: #888; text-decoration: underline;">
+            ← Cancel and go back to reviews
+        </a>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

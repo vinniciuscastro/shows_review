@@ -29,7 +29,7 @@
                             <% if (locals.isAuthenticated) { %>
                                 <a href="/rate/<%= show.id %>" class="btn btn-small">Rate Movie</a>
                             <% } else { %>
-                                <a href="/auth/login" class="btn btn-small">Login to Rate</a>
+                                <a href="/review-choice/<%= show.id %>" class="btn btn-small">Rate Movie</a>
                             <% } %>
                         </div>
                     </div>
