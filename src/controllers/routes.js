@@ -30,9 +30,9 @@ router.get('/auth/logout', handleLogout);
 router.get('/dashboard', requireAuth, renderDashboard);
 router.post('/review/delete/:id', requireAuth, handleDeleteReview);
 
-// Rating routes
-router.get('/rate/:id', requireAuth, renderRatingPage);
-router.post('/rate/:id', requireAuth, ratingValidation, handleRating);
+// Rating routes (open to guests and logged-in users)
+router.get('/rate/:id', renderRatingPage);
+router.post('/rate/:id', ratingValidation, handleRating);
 
 // Reviews routes
 router.get('/reviews/:id', renderShowReviews);

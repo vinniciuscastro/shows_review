@@ -2,19 +2,45 @@ import pool from '../config/database.js';
 
 /**
  * Add or update a review for a show
+ * For guest users (userId = null), always insert a new review (no updates)
+ * For logged-in users, update existing review if one exists
  */
 export async function addOrUpdateReview(showId, userId, score, description) {
     try {
-        const query = `
-            INSERT INTO reviews (show_id, user_id, score, description)
-            VALUES ($1, $2, $3, $4)
-            ON CONFLICT (show_id, user_id)
-            DO UPDATE SET score = $3, description = $4, created_at = CURRENT_TIMESTAMP
-            RETURNING *
-        `;
+        // For guest users, always insert a new review
+        if (!userId) {
+            const query = `
+                INSERT INTO reviews (show_id, user_id, score, description)
+                VALUES ($1, NULL, $2, $3)
+                RETURNING *
+            `;
+            const result = await pool.query(query, [showId, score, description]);
+            return result.rows[0];
+        }
 
-        const result = await pool.query(query, [showId, userId, score, description]);
-        return result.rows[0];
+        // For logged-in users, check if review exists
+        const existingReview = await getUserReviewForShow(showId, userId);
+
+        if (existingReview) {
+            // Update existing review
+            const query = `
+                UPDATE reviews
+                SET score = $1, description = $2, created_at = CURRENT_TIMESTAMP
+                WHERE show_id = $3 AND user_id = $4
+                RETURNING *
+            `;
+            const result = await pool.query(query, [score, description, showId, userId]);
+            return result.rows[0];
+        } else {
+            // Insert new review
+            const query = `
+                INSERT INTO reviews (show_id, user_id, score, description)
+                VALUES ($1, $2, $3, $4)
+                RETURNING *
+            `;
+            const result = await pool.query(query, [showId, userId, score, description]);
+            return result.rows[0];
+        }
     } catch (error) {
         console.error('Error adding/updating review:', error);
         throw error;
@@ -89,7 +115,7 @@ export async function deleteReview(showId, userId) {
 }
 
 /**
- * Get all reviews for a specific show
+ * Get all reviews for a specific show (including guest reviews)
  */
 export async function getAllReviewsForShow(showId) {
     try {
@@ -105,7 +131,7 @@ export async function getAllReviewsForShow(showId) {
                 u.first_name,
                 u.last_name
             FROM reviews r
-            JOIN users u ON r.user_id = u.id
+            LEFT JOIN users u ON r.user_id = u.id
             WHERE r.show_id = $1
             ORDER BY r.created_at DESC
         `;

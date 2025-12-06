@@ -66,8 +66,7 @@ export async function createTables() {
                 user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
                 score DECIMAL(3, 1) NOT NULL CHECK (score >= 1 AND score <= 10),
                 description TEXT,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                UNIQUE(show_id, user_id)
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         `);
         console.log('✓ Reviews table created');

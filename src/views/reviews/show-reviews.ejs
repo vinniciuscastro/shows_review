@@ -11,11 +11,7 @@
 
 <div class="content-section">
     <div style="margin-bottom: 2rem;">
-        <% if (locals.isAuthenticated) { %>
-            <a href="/rate/<%= show.id %>" class="btn">Add/Edit Your Review</a>
-        <% } else { %>
-            <a href="/auth/login" class="btn">Login to Review</a>
-        <% } %>
+        <a href="/rate/<%= show.id %>" class="btn">Write a Review</a>
         <a href="/<%= show.media_type === 'movie' ? 'movies' : 'tv-shows' %>" class="btn" style="margin-left: 0.5rem; background: #3a4050;">Back to <%= show.media_type === 'movie' ? 'Movies' : 'TV Shows' %></a>
     </div>
 
@@ -28,8 +24,13 @@
                     <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
                         <div>
                             <h3 style="margin: 0; color: #e4e6eb; font-size: 1.1rem;">
-                                <%= review.first_name %> <%= review.last_name %>
-                                <span style="color: #888; font-size: 0.9rem; font-weight: normal;">(@<%= review.username %>)</span>
+                                <% if (review.user_id) { %>
+                                    <%= review.first_name %> <%= review.last_name %>
+                                    <span style="color: #888; font-size: 0.9rem; font-weight: normal;">(@<%= review.username %>)</span>
+                                <% } else { %>
+                                    Guest
+                                    <span style="background: #3a4050; color: #888; font-size: 0.8rem; font-weight: normal; padding: 0.2rem 0.5rem; border-radius: 4px; margin-left: 0.5rem;">Guest Review</span>
+                                <% } %>
                             </h3>
                             <p style="margin: 0.5rem 0 0 0; color: #888; font-size: 0.9rem;">
                                 Reviewed on <%= new Date(review.created_at).toLocaleDateString() %>
@@ -50,11 +51,19 @@
                         </p>
                     <% } %>
 
-                    <% if (locals.isAuthenticated && locals.userId === review.user_id) { %>
+                    <% if (review.user_id && locals.isAuthenticated && locals.userId === review.user_id) { %>
+                        <!-- User owns this review - can edit and delete -->
                         <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #3a4050;">
                             <a href="/rate/<%= show.id %>" class="btn btn-small">Edit Your Review</a>
                             <form action="/reviews/<%= show.id %>/delete" method="POST" style="display: inline; margin-left: 0.5rem;" onsubmit="return confirm('Are you sure you want to delete your review?');">
                                 <button type="submit" class="btn btn-small" style="background: #dc3545; border-color: #dc3545;">Delete Your Review</button>
+                            </form>
+                        </div>
+                    <% } else if (!review.user_id && locals.isAdmin) { %>
+                        <!-- Guest review - only admin can delete -->
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #3a4050;">
+                            <form action="/admin/delete-review/<%= review.id %>" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this guest review? This action cannot be undone.');">
+                                <button type="submit" class="btn btn-small" style="background: #dc3545; border-color: #dc3545;">Delete Guest Review (Admin)</button>
                             </form>
                         </div>
                     <% } %>
