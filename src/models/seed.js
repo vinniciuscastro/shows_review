@@ -21,7 +21,7 @@ async function seedAdmin() {
         const checkResult = await pool.query(checkQuery, ['admin_user']);
 
         if (checkResult.rows[0].exists) {
-            console.log('⊘ Admin user already exists');
+            
             return;
         }
 
@@ -42,7 +42,7 @@ async function seedAdmin() {
             true
         ]);
 
-        console.log('✓ Created admin user: admin_user');
+       
     } catch (error) {
         console.error('Error seeding admin:', error);
         throw error;
@@ -125,7 +125,6 @@ export async function seedDatabase() {
         ];
 
         // Seed movies
-        console.log('\nSeeding movies...');
         for (const movie of movies) {
             // Check if movie already exists
             if (await showExists(movie.name, 'movie')) {
@@ -140,7 +139,7 @@ export async function seedDatabase() {
                 'movie',
                 movie.imageUrl
             );
-            console.log(`✓ Created movie: ${movie.name}`);
+            
 
             // Add genres
             const genreIds = [];
@@ -149,7 +148,7 @@ export async function seedDatabase() {
                 genreIds.push(genre.id);
             }
             await addGenresToShow(show.id, genreIds);
-            console.log(`  Added ${movie.genres.length} genres`);
+            
         }
 
         // Seed TV shows
@@ -157,7 +156,6 @@ export async function seedDatabase() {
         for (const tvShow of tvShows) {
             // Check if TV show already exists
             if (await showExists(tvShow.name, 'tv-show')) {
-                console.log(`⊘ Skipped (already exists): ${tvShow.name}`);
                 continue;
             }
 
@@ -168,7 +166,7 @@ export async function seedDatabase() {
                 'tv-show',
                 tvShow.imageUrl
             );
-            console.log(`✓ Created TV show: ${tvShow.name}`);
+            
 
             // Add genres
             const genreIds = [];
@@ -177,11 +175,10 @@ export async function seedDatabase() {
                 genreIds.push(genre.id);
             }
             await addGenresToShow(show.id, genreIds);
-            console.log(`  Added ${tvShow.genres.length} genres`);
+            
         }
 
-        console.log('\n✅ Database seeding completed successfully!');
-        console.log(`Seeded ${movies.length} movies and ${tvShows.length} TV shows`);
+        
     } catch (error) {
         console.error('Error seeding database:', error);
         throw error;
