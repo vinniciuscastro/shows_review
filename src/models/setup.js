@@ -29,7 +29,7 @@ async function setup() {
         await pool.end();
         process.exit(0);
     } catch (error) {
-        console.error('\n❌ Setup failed:', error);
+        console.error('\n Setup failed:', error);
         await pool.end();
         process.exit(1);
     }
@@ -69,7 +69,7 @@ async function reset() {
         await pool.end();
         process.exit(0);
     } catch (error) {
-        console.error('\n❌ Reset failed:', error);
+        console.error('\n Reset failed:', error);
         await pool.end();
         process.exit(1);
     }

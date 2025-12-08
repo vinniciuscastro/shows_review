@@ -21,7 +21,7 @@ export async function createTables() {
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         `);
-        console.log('✓ Users table created');
+        
 
         // Create shows table
         await pool.query(`
@@ -36,7 +36,7 @@ export async function createTables() {
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         `);
-        console.log('✓ Shows table created');
+        
 
         // Create genres table
         await pool.query(`
@@ -46,7 +46,7 @@ export async function createTables() {
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         `);
-        console.log('✓ Genres table created');
+        
 
         // Create show_genres junction table
         await pool.query(`
@@ -56,7 +56,7 @@ export async function createTables() {
                 PRIMARY KEY (show_id, genre_id)
             )
         `);
-        console.log('✓ Show_genres junction table created');
+        
 
         // Create reviews table
         await pool.query(`
@@ -69,15 +69,13 @@ export async function createTables() {
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         `);
-        console.log('✓ Reviews table created');
+        
 
         // Create index on reviews for better performance
         await pool.query(`
             CREATE INDEX IF NOT EXISTS idx_reviews_show_id ON reviews(show_id)
         `);
-        console.log('✓ Indexes created');
-
-        console.log('All tables created successfully!');
+        
     } catch (error) {
         console.error('Error creating tables:', error);
         throw error;
