@@ -20,6 +20,9 @@ const __dirname = path.dirname(__filename);
 // Create an instance of an Express application
 const app = express();
 
+// Trust proxy 
+app.set('trust proxy', 1);
+
 // Set up view engine (EJS)
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src', 'views'));
