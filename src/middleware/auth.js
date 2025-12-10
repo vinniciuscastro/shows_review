@@ -32,7 +32,8 @@ export function setUserLocals(req, res, next) {
         res.locals.user = {
             id: req.session.userId,
             username: req.session.username,
-            firstName: req.session.firstName
+            firstName: req.session.firstName,
+            isAdmin: req.session.isAdmin || false
         };
     } else {
         res.locals.isAuthenticated = false;

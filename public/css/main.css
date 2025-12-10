@@ -324,6 +324,28 @@ body {
 }
 
 /* ============================================
+   FILTER SECTION
+   ============================================ */
+.filter-section {
+    background: #2a2f3a;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.filter-section .btn-small.active {
+    background: #4a90e2;
+    color: #fff;
+    border-color: #4a90e2;
+}
+
+.filter-section .btn-small {
+    background: #3a4050;
+    color: #e4e6eb;
+    border-color: #3a4050;
+}
+
+/* ============================================
    INFO BOX
    ============================================ */
 .info-box {

@@ -1,10 +1,23 @@
 import pool from '../config/database.js';
 
 /**
- * Get all shows by media type (movie or tv-show)
+ * Get all shows by media type (movie or tv-show) with optional sorting
+ * @param {string} mediaType - 'movie' or 'tv-show'
+ * @param {string} sortBy - 'name', 'rating', or 'reviews' (default: 'name')
+ * @param {string} order - 'asc' or 'desc' (default: 'asc')
  */
-export async function getShowsByType(mediaType) {
+export async function getShowsByType(mediaType, sortBy = 'name', order = 'asc') {
     try {
+        // Validate sortBy to prevent SQL injection
+        const allowedSortFields = {
+            'name': 's.name',
+            'rating': 'average_score',
+            'reviews': 'review_count'
+        };
+
+        const sortField = allowedSortFields[sortBy] || 's.name';
+        const sortOrder = order === 'desc' ? 'DESC' : 'ASC';
+
         const query = `
             SELECT
                 s.id,
@@ -22,7 +35,7 @@ export async function getShowsByType(mediaType) {
             LEFT JOIN reviews r ON s.id = r.show_id
             WHERE s.media_type = $1
             GROUP BY s.id, s.name, s.start_date, s.end_date, s.media_type, s.image_url
-            ORDER BY s.name
+            ORDER BY ${sortField} ${sortOrder}
         `;
 
         const result = await pool.query(query, [mediaType]);

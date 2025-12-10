@@ -23,6 +23,14 @@
                     <a href="/tv-shows" class="nav-link <%= currentPage === 'tv-shows' ? 'active' : '' %>">TV Shows</a>
                 </li>
                 <% if (locals.isAuthenticated) { %>
+                    <% if (locals.user && locals.user.isAdmin) { %>
+                        <li class="nav-item">
+                            <a href="/admin" class="nav-link <%= currentPage === 'admin' ? 'active' : '' %>">Admin</a>
+                        </li>
+                    <% } %>
+                    <li class="nav-item">
+                        <a href="/dashboard" class="nav-link <%= currentPage === 'dashboard' ? 'active' : '' %>">Dashboard</a>
+                    </li>
                     <li class="nav-item">
                         <a href="/auth/logout" class="nav-link">Sign Out (<%= user.username %>)</a>
                     </li>
