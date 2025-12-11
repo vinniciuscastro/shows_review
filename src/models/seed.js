@@ -1,5 +1,5 @@
 import { createShow, getOrCreateGenre, addGenresToShow } from '../models/showModel.js';
-import pool from '../config/database.js';
+import pool from './db.js';
 import bcrypt from 'bcryptjs';
 
 /**

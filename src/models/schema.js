@@ -1,4 +1,4 @@
-import pool from '../config/database.js';
+import pool from './db.js';
 
 /**
  * Create all database tables

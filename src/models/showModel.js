@@ -1,4 +1,4 @@
-import pool from '../config/database.js';
+import pool from './db.js';
 
 /**
  * Get all shows by media type (movie or tv-show) with optional sorting

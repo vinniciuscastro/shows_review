@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 import routes from './src/controllers/routes.js';
 import session from 'express-session';
 import connectPgSimple from 'connect-pg-simple';
-import pool from './src/config/database.js';
+import pool from './src/models/db.js';
 import { setUserLocals } from './src/middleware/auth.js';
 import flash from './src/middleware/flash.js';
 

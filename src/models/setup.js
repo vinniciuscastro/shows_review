@@ -1,6 +1,6 @@
 import { createTables, dropTables } from './schema.js';
 import { seedDatabase } from './seed.js';
-import pool from '../config/database.js';
+import pool from './db.js';
 
 /**
  * Main setup function

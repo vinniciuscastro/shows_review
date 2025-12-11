@@ -1,4 +1,4 @@
-import pool from '../config/database.js';
+import pool from './db.js';
 
 /**
  * Add or update a review for a show

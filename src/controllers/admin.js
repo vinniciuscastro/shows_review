@@ -1,6 +1,6 @@
 import { validationResult } from 'express-validator';
 import { createShow, getOrCreateGenre, addGenresToShow, getShowById } from '../models/showModel.js';
-import pool from '../config/database.js';
+import pool from '../models/db.js';
 
 /**
  * Render admin panel
