@@ -38,17 +38,36 @@ This project teaches essential backend development skills:
 
 ---
 
-## ✨ Features
+## Feature Summary
+The application provides comprehensive show review functionality:
 
-### Core Functionality
-- ✅ Browse TV shows and movies
-- ✅ Read reviews from other users
-- ✅ Post reviews (authenticated or guest)
-- ✅ User registration and login
-- ✅ User profile management
-- ✅ Edit/delete own reviews
-- ✅ Search and filter content
-- ✅ Rating system (1-5 stars)
+### Public Features:
+
+Browse movies and TV shows with poster images
+View aggregated ratings (average score, review count)
+Read all reviews for any show
+Filter/search by genre
+
+### Guest Reviewer Features:
+
+Submit reviews without registration
+Cannot edit or delete reviews after submission
+
+### Authenticated User Features:
+
+All guest features
+Personal dashboard showing all own reviews
+Edit existing reviews
+Delete own reviews
+Persistent session across browser restarts
+
+### Admin Features:
+
+All user features
+Add new shows with genre associations
+Edit existing show details
+Delete shows (cascades to reviews)
+Delete guest reviews (moderation)
 
 ### User Types
 1. **Guest Users** - Can view and post reviews (with limited features)
